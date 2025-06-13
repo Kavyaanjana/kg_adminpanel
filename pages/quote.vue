@@ -272,116 +272,163 @@ function markAsCompleted(quote) {
 
 <style scoped>
 h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #2c3e50;
+  font-size: 28px;
+  margin-bottom: 24px;
+  color: #1e293b;
+  font-weight: 700;
+  /* text-align: center; */
 }
 
 .status-counts {
   display: flex;
   gap: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
+  /* justify-content: center; */
   flex-wrap: wrap;
 }
 
 .count-chip {
-  padding: 6px 12px;
-  border-radius: 16px;
+  padding: 8px 16px;
+  border-radius: 20px;
   font-size: 14px;
   font-weight: 500;
   color: white;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.count-chip.total {
+  background-color: #216bf3;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .count-chip.upcoming {
-  background-color: #4caf50;
+  background-color: #f75696;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .count-chip.completed {
-  background-color: #9e9e9e;
+  background-color: #10b981;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .controls {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  justify-content: center;
 }
 
 .search-input,
 .select-filter {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+  padding: 10px 14px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
   font-size: 14px;
-  flex-grow: 1;
+  background-color: #f9fafb;
+  transition: border-color 0.3s ease;
   min-width: 200px;
+}
+
+.search-input:focus,
+.select-filter:focus {
+  border-color: #3b82f6;
+  outline: none;
+}
+
+.reset-button {
+  padding: 10px 16px;
+  border: none;
+  background-color: #ef4444;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+  background-color: #dc2626;
 }
 
 .quote-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 24px;
+  padding: 0 10px;
 }
 
 .quote-card {
   background: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  padding: 20px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.13);
+  padding: 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .quote-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
 }
 
 .quote-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
 }
 
 .quote-header h2 {
   font-size: 18px;
+  color: #0f172a;
+  font-weight: 600;
   margin: 0;
-  color: #2c3e50;
 }
 
 .badge {
-  background: #ff5722;
+  background: #f97316;
   color: white;
   font-size: 12px;
-  padding: 4px 10px;
+  padding: 6px 12px;
   border-radius: 12px;
   text-transform: uppercase;
+  font-weight: 500;
 }
 
 .quote-body p {
-  margin: 6px 0;
+  margin: 8px 0;
   font-size: 14px;
-  color: #555;
+  color: #475569;
 }
 
 .status-section {
-  margin-top: 12px;
+  margin-top: 16px;
+  /* text-align: right; */
 }
 
 .complete-button {
-  padding: 6px 10px;
-  background-color: #4caf50;
+  padding: 8px 14px;
+  background-color: #f75696;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 13px;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.complete-button:hover {
+  background-color: #059669;
 }
 
 .status-text {
   font-size: 14px;
-  color: #4caf50;
-  font-weight: bold;
+  color: #10b981;
+  font-weight: 600;
 }
 
 .pagination {
@@ -393,35 +440,28 @@ h1 {
 }
 
 .pagination button {
-  background: #1e88e5;
+  background: #0f66f1;
   color: white;
-  padding: 6px 14px;
+  padding: 8px 16px;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.pagination button:hover {
+  background: #0f66f1;
 }
 
 .pagination button:disabled {
-  background: #ccc;
+  background: #d1d5db;
   cursor: not-allowed;
 }
 
 .pagination span {
   font-size: 14px;
-  color: #444;
-}
-.count-chip.total {
-  background-color: #2196f3;
+  color: #334155;
 }
 
-.reset-button {
-  padding: 8px 12px;
-  border: none;
-  background-color: #f44336;
-  color: white;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 14px;
-}
 </style>
