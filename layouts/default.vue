@@ -1,9 +1,8 @@
-
 <template>
   <div class="layout">
     <AppSidebar />
     <div class="content">
-      <slot />
+      <NuxtPage />
     </div>
   </div>
 </template>
