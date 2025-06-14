@@ -319,7 +319,7 @@ h1 {
   gap: 12px;
   flex-wrap: wrap;
   margin-bottom: 24px;
-  justify-content: center;
+  /* justify-content: center; */
 }
 
 .search-input,
@@ -328,6 +328,7 @@ h1 {
   border: 1px solid #d1d5db;
   border-radius: 10px;
   font-size: 14px;
+   flex-grow: 1;
   background-color: #f9fafb;
   transition: border-color 0.3s ease;
   min-width: 200px;

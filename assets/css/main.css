@@ -1,23 +1,35 @@
-
-body {
+html, body {
   margin: 0;
+  padding: 0;
+  height: 100%;
   font-family: Arial, sans-serif;
 }
+
 .layout {
   display: flex;
+  flex-direction: row;
   height: 100vh;
+  width: 100vw;
+  overflow: hidden;
 }
+
 .sidebar {
   width: 220px;
   background: #1e1e2f;
   color: white;
   padding: 20px;
   box-sizing: border-box;
+  height: 100vh;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
 }
+
 .sidebar h2 {
   margin-bottom: 20px;
   font-size: 1.2rem;
 }
+
 .sidebar a {
   display: block;
   color: white;
@@ -26,38 +38,53 @@ body {
   padding: 10px;
   border-radius: 4px;
 }
+
 .sidebar a:hover {
   background: #33334d;
 }
+
 .content {
   flex: 1;
   padding: 20px;
   overflow-y: auto;
+  height: 100vh;
+  box-sizing: border-box;
 }
+
+/* Tables and text */
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 }
+
 th, td {
   border: 1px solid #ccc;
   padding: 12px;
   text-align: left;
 }
+
 th {
   background: #f4f4f4;
 }
+
+/* Mobile Styles */
 @media (max-width: 768px) {
   .layout {
-    flex-direction: column;
+    flex-direction: row; /* DO NOT change to column */
   }
+
   .sidebar {
-    width: 100%;
+    width: 180px;
+    height: 100vh;
   }
+
   .content {
-    padding: 10px;
+    height: 100vh;
+    padding: 12px;
   }
+
   table, th, td {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
