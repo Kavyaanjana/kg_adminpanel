@@ -118,7 +118,7 @@ const defaultQuotes = [
     venue: 'HICC Novotel',
     service: 'Buffet Service',
     dietary: 'Veg & Non-Veg',
-    budget: 400000,
+    budget: 420000,
     status: 'completed'
   },
   {
