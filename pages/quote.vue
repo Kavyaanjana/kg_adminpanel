@@ -12,11 +12,11 @@
     <!-- Controls -->
     <div class="controls">
       <input
-        type="text"
         v-model="searchQuery"
+        type="text"
         placeholder="Search by name..."
         class="search-input"
-      />
+      >
 
       <select v-model="selectedEventType" class="select-filter">
         <option value="">All Event Types</option>
@@ -37,45 +37,43 @@
         <option value="budget">Budget (High to Low)</option>
       </select>
 
-      <button @click="resetFilters" class="reset-button">Reset Filters</button>
+      <button class="reset-button" @click="resetFilters">Reset Filters</button>
     </div>
 
-    <!-- Grid -->
-    <div class="quote-grid">
-      <div
-        v-for="(quote, index) in paginatedQuotes"
-        :key="index"
-        class="quote-card"
-      >
-        <div class="quote-header">
-          <h2>{{ quote.name }}</h2>
-          <span class="badge">{{ quote.eventType }}</span>
-        </div>
-
-        <div class="quote-body">
-          <p><strong>Email:</strong> {{ quote.email }}</p>
-          <p><strong>Phone:</strong> {{ quote.phone }}</p>
-          <p><strong>Company:</strong> {{ quote.company }}</p>
-          <p><strong>Guests:</strong> {{ quote.guests }}</p>
-          <p><strong>Event Date:</strong> {{ quote.date }} at {{ quote.time }}</p>
-          <p><strong>Venue:</strong> {{ quote.venue }}</p>
-          <p><strong>Service:</strong> {{ quote.service }}</p>
-          <p><strong>Dietary:</strong> {{ quote.dietary }}</p>
-          <p><strong>Budget:</strong> ₹{{ quote.budget.toLocaleString() }}</p>
-
-          <div class="status-section">
+    <!-- Table View -->
+    <table class="quote-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <!-- <th>Email</th> -->
+          <th>Phone No</th>
+          <th>Event Type</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Venue</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(quote, index) in paginatedQuotes" :key="index">
+          <td>{{ quote.name }}</td>
+          <!-- <td>{{ quote.email }}</td> -->
+          <td>{{ quote.phone }}</td>
+          <td>{{ quote.eventType }}</td>
+          <td>{{ quote.date }} at {{ quote.time }}</td>
+          <td>
             <button
               v-if="quote.status === 'upcoming'"
-              @click="markAsCompleted(quote)"
               class="complete-button"
+              @click="markAsCompleted(quote)"
             >
               Upcoming
             </button>
-            <span v-else class="status-text">✅ Completed</span>
-          </div>
-        </div>
-      </div>
-    </div>
+            <span v-else class="status-text">Completed</span>
+          </td>
+          <td>{{ quote.venue }}</td>
+        </tr>
+      </tbody>
+    </table>
 
     <!-- Pagination -->
     <div class="pagination">
@@ -355,81 +353,59 @@ h1 {
   background-color: #dc2626;
 }
 
-.quote-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 24px;
-  padding: 0 10px;
-}
-
-.quote-card {
-  background: #ffffff;
-  border-radius: 16px;
+.quote-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 24px 0;
+  background-color: white;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.13);
-  padding: 24px;
-     flex-grow: 1;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
-.quote-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.12);
-}
-
-.quote-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
-}
-
-.quote-header h2 {
-  font-size: 18px;
-  color: #0f172a;
-  font-weight: 600;
-  margin: 0;
-}
-
-.badge {
-  background: #f97316;
-  color: white;
-  font-size: 12px;
-  padding: 6px 12px;
-  border-radius: 12px;
-  text-transform: uppercase;
-  font-weight: 500;
-}
-
-.quote-body p {
-  margin: 8px 0;
+.quote-table th,
+.quote-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
   font-size: 14px;
-  color: #475569;
+  color: #334155;
 }
 
-.status-section {
-  margin-top: 16px;
-  /* text-align: right; */
+.quote-table th {
+  background-color: #f1f5f9;
+  font-weight: 600;
+  color: #1e293b;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+.quote-table tbody tr:hover {
+  background-color: #f9fafb;
 }
 
 .complete-button {
-  padding: 8px 14px;
+  padding: 6px 12px;
   background-color: #f75696;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-weight: bold;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
+  font-size: 13px;
+  font-weight: 600;
 }
-
 .complete-button:hover {
   background-color: #059669;
 }
 
 .status-text {
-  font-size: 14px;
-  color: #10b981;
+    padding: 6px 12px;
+  background-color:  #10b981;
+ color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
   font-weight: 600;
 }
 
