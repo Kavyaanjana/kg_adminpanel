@@ -100,15 +100,15 @@ const defaultQuotes = [
     guests: 200,
     date: '2025-12-15',
     time: '6:00 PM',
-    venue: 'Hyderabad Convention Center',
-    service: 'Full Planning',
+    venue: 'Novotel Hyderabad Convention Center',
+    service: 'Buffet Service',
     dietary: 'Veg & Non-Veg',
-    budget: 800000,
+    budget: 1200000,
     status: 'upcoming'
   },
   {
     name: 'Rahul Sharma',
-    email: 'rahul@example.com',
+    email: 'rahul@gmail.com',
     phone: '9876543211',
     company: 'Eventastic',
     eventType: 'Corporate',
@@ -116,14 +116,14 @@ const defaultQuotes = [
     date: '2025-11-20',
     time: '5:00 PM',
     venue: 'HICC Novotel',
-    service: 'Catering Only',
-    dietary: 'Vegetarian',
+    service: 'Buffet Service',
+    dietary: 'Veg & Non-Veg',
     budget: 400000,
     status: 'completed'
   },
   {
     name: 'Sneha Reddy',
-    email: 'sneha@example.com',
+    email: 'sneha@gmail.com',
     phone: '9876543222',
     company: 'Dream Weddings',
     eventType: 'Birthday',
@@ -131,14 +131,14 @@ const defaultQuotes = [
     date: '2025-10-10',
     time: '4:00 PM',
     venue: 'Taj Krishna',
-    service: 'Decoration',
+    service: 'Plated Service',
     dietary: 'Non-Vegetarian',
     budget: 250000,
     status: 'upcoming'
   },
   {
     name: 'Vikram Desai',
-    email: 'vikram@example.com',
+    email: 'vikram@gmail.com',
     phone: '9876543233',
     company: 'Event Kings',
     eventType: 'Engagement',
@@ -146,14 +146,14 @@ const defaultQuotes = [
     date: '2025-09-01',
     time: '7:00 PM',
     venue: 'The Park Hyderabad',
-    service: 'Full Package',
+    service: 'Buffet Service',
     dietary: 'Veg & Non-Veg',
     budget: 1000000,
     status: 'completed'
   },
   {
     name: 'Pooja Iyer',
-    email: 'pooja@example.com',
+    email: 'pooja@gmail.com',
     phone: '9876543244',
     company: 'Royal Events',
     eventType: 'Wedding',
@@ -161,14 +161,14 @@ const defaultQuotes = [
     date: '2025-12-01',
     time: '5:30 PM',
     venue: 'Golkonda Resorts',
-    service: 'Catering & Decor',
+    service: 'Plated Service',
     dietary: 'Veg',
     budget: 600000,
     status: 'upcoming'
   },
   {
     name: 'Manish Rao',
-    email: 'manish@example.com',
+    email: 'manish@gmail.com',
     phone: '9876543255',
     company: 'Celebrations Inc.',
     eventType: 'Corporate',
@@ -176,7 +176,7 @@ const defaultQuotes = [
     date: '2025-11-10',
     time: '6:00 PM',
     venue: 'Trident Hyderabad',
-    service: 'Full Service',
+    service: 'Plated Service',
     dietary: 'Veg & Non-Veg',
     budget: 1200000,
     status: 'upcoming'
@@ -328,7 +328,7 @@ h1 {
   border: 1px solid #d1d5db;
   border-radius: 10px;
   font-size: 14px;
-   flex-grow: 1;
+  flex-grow: 1;
   background-color: #f9fafb;
   transition: border-color 0.3s ease;
   min-width: 200px;
@@ -367,6 +367,7 @@ h1 {
   border-radius: 16px;
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.13);
   padding: 24px;
+     flex-grow: 1;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
