@@ -17,6 +17,7 @@
       <span class="count-chip total">Total: {{ totalCount }}</span>
       <span class="count-chip upcoming">Upcoming: {{ upcomingCount }}</span>
       <span class="count-chip completed">Completed: {{ completedCount }}</span>
+      <span class="count-chip cancelled">Cancelled: {{ cancelledCount }}</span>
     </div>
 
     <!-- Controls -->
@@ -39,6 +40,7 @@
         <option value="">All Status</option>
         <option value="upcoming">Upcoming</option>
         <option value="completed">Completed</option>
+        <option value="cancelled">Cancelled</option>
       </select>
 
       <select v-model="sortOption" class="select-filter">
@@ -64,22 +66,37 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(quote, index) in paginatedQuotes" :key="index">
+        <tr
+          v-for="(quote, index) in paginatedQuotes"
+          :key="index"
+          class="cursor-pointer hover:bg-gray-100 transition"
+          @dblclick="goToQuoteDetails(index)"
+        >
           <td>{{ quote.name }}</td>
           <!-- <td>{{ quote.email }}</td> -->
           <td>{{ quote.phone }}</td>
           <td>{{ quote.eventType }}</td>
           <td>{{ quote.date }} at {{ quote.time }}</td>
           <td>
-            <button
-              v-if="quote.status === 'upcoming'"
-              class="complete-button"
-              @click="markAsCompleted(quote)"
+            <select
+              v-model="quote.status"
+              :disabled="quote.status === 'completed'"
+              :class="[
+                'custom-status-dropdown',
+                {
+                  'status-completed': quote.status === 'completed',
+                  'status-upcoming': quote.status === 'upcoming',
+                  'status-cancelled': quote.status === 'cancelled',
+                },
+              ]"
+              @change="saveQuotes"
             >
-              Upcoming
-            </button>
-            <span v-else class="status-text">Completed</span>
+              <option value="upcoming">Upcoming</option>
+              <option value="completed">Completed</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
           </td>
+
           <td>{{ quote.venue }}</td>
         </tr>
       </tbody>
@@ -112,6 +129,8 @@ const defaultQuotes = [
     dietary: "Veg & Non-Veg",
     budget: 1200000,
     status: "upcoming",
+    specialRequests: "Live food counters",
+    heardFrom: "Instagram",
   },
   {
     name: "Rahul Sharma",
@@ -127,6 +146,8 @@ const defaultQuotes = [
     dietary: "Veg & Non-Veg",
     budget: 420000,
     status: "completed",
+    specialRequests: "Assorted starters and beverages",
+    heardFrom: "LinkedIn",
   },
   {
     name: "Sneha Reddy",
@@ -142,6 +163,8 @@ const defaultQuotes = [
     dietary: "Non-Vegetarian",
     budget: 250000,
     status: "upcoming",
+    specialRequests: "Non-veg snacks and cake",
+    heardFrom: "Facebook",
   },
   {
     name: "Vikram Desai",
@@ -157,6 +180,8 @@ const defaultQuotes = [
     dietary: "Veg & Non-Veg",
     budget: 1000000,
     status: "completed",
+    specialRequests: "Continental buffet with vegan corner",
+    heardFrom: "Google",
   },
   {
     name: "Pooja Iyer",
@@ -172,6 +197,8 @@ const defaultQuotes = [
     dietary: "Veg",
     budget: 600000,
     status: "upcoming",
+    specialRequests: "South Indian traditional meals",
+    heardFrom: "Word of Mouth",
   },
   {
     name: "Manish Rao",
@@ -187,6 +214,8 @@ const defaultQuotes = [
     dietary: "Veg & Non-Veg",
     budget: 1200000,
     status: "upcoming",
+    specialRequests: "Multi-cuisine buffet with mocktails",
+    heardFrom: "Email Campaign",
   },
   {
     name: "Nisha Verma",
@@ -202,6 +231,8 @@ const defaultQuotes = [
     dietary: "Vegetarian",
     budget: 350000,
     status: "completed",
+    specialRequests: "Rajasthani thali and sweets",
+    heardFrom: "Instagram",
   },
   {
     name: "Amit Kapoor",
@@ -217,6 +248,8 @@ const defaultQuotes = [
     dietary: "Veg",
     budget: 200000,
     status: "upcoming",
+    specialRequests: "Kids-friendly snacks and cake",
+    heardFrom: "Flyer",
   },
   {
     name: "Shruti Rao",
@@ -232,6 +265,8 @@ const defaultQuotes = [
     dietary: "Veg",
     budget: 150000,
     status: "completed",
+    specialRequests: "Gujarati cuisine with sweets",
+    heardFrom: "Friend",
   },
   {
     name: "Ravi Teja",
@@ -247,6 +282,8 @@ const defaultQuotes = [
     dietary: "Veg & Non-Veg",
     budget: 850000,
     status: "upcoming",
+    specialRequests: "Live BBQ and grill counters",
+    heardFrom: "Google Ads",
   },
   {
     name: "Anjali Mehta",
@@ -262,6 +299,8 @@ const defaultQuotes = [
     dietary: "Veg & Non-Veg",
     budget: 1800000,
     status: "upcoming",
+    specialRequests: "Live pasta and chat counter",
+    heardFrom: "Wedding Website",
   },
   {
     name: "Arun Patel",
@@ -277,6 +316,8 @@ const defaultQuotes = [
     dietary: "Veg",
     budget: 1500000,
     status: "upcoming",
+    specialRequests: "Business lunch with starters",
+    heardFrom: "Facebook",
   },
   {
     name: "Neha Gupta",
@@ -292,6 +333,8 @@ const defaultQuotes = [
     dietary: "Veg & Non-Veg",
     budget: 100000,
     status: "completed",
+    specialRequests: "Cake table and snack station",
+    heardFrom: "Instagram",
   },
   {
     name: "Karan Malhotra",
@@ -307,6 +350,8 @@ const defaultQuotes = [
     dietary: "Veg & Non-Veg",
     budget: 2500000,
     status: "upcoming",
+    specialRequests: "Luxury multi-course menu",
+    heardFrom: "Event Magazine",
   },
   {
     name: "Divya Singh",
@@ -322,6 +367,8 @@ const defaultQuotes = [
     dietary: "Veg",
     budget: 300000,
     status: "completed",
+    specialRequests: "Finger food and coffee",
+    heardFrom: "WhatsApp Group",
   },
   {
     name: "Siddharth Rao",
@@ -337,6 +384,8 @@ const defaultQuotes = [
     dietary: "Veg",
     budget: 120000,
     status: "upcoming",
+    specialRequests: "Popcorn & candy cart",
+    heardFrom: "School",
   },
   {
     name: "Meera Joshi",
@@ -352,6 +401,8 @@ const defaultQuotes = [
     dietary: "Veg & Non-Veg",
     budget: 950000,
     status: "completed",
+    specialRequests: "Traditional Andhra meal",
+    heardFrom: "Wedding Planner",
   },
   {
     name: "Rakesh Jain",
@@ -367,6 +418,8 @@ const defaultQuotes = [
     dietary: "Veg & Non-Veg",
     budget: 850000,
     status: "upcoming",
+    specialRequests: "Live dosa and sandwich counters",
+    heardFrom: "Business Partner",
   },
   {
     name: "Aarav Nair",
@@ -382,6 +435,8 @@ const defaultQuotes = [
     dietary: "Veg",
     budget: 80000,
     status: "completed",
+    specialRequests: "Cupcakes and pizza corner",
+    heardFrom: "Apartment Group",
   },
   {
     name: "Ishita Kapoor",
@@ -397,6 +452,8 @@ const defaultQuotes = [
     dietary: "Veg & Non-Veg",
     budget: 1400000,
     status: "upcoming",
+    specialRequests: "Hyderabadi cuisine with desserts",
+    heardFrom: "Instagram",
   },
 ];
 
@@ -493,11 +550,23 @@ const completedCount = computed(
   () => filteredQuotes.value.filter((q) => q.status === "completed").length
 );
 
+const cancelledCount = computed(
+  () => filteredQuotes.value.filter((q) => q.status === "cancelled").length
+);
+
 const totalCount = computed(() => filteredQuotes.value.length);
 
-// Button to mark as completed
-function markAsCompleted(quote) {
-  quote.status = "completed";
+function saveQuotes() {
+  // Reassign to trigger Vue reactivity
+  quotes.value = [...quotes.value];
+  localStorage.setItem("quotesData", JSON.stringify(quotes.value));
+}
+
+
+const router = useRouter();
+
+function goToQuoteDetails(index) {
+  router.push(`/quotes/${index}`);
 }
 </script>
 
@@ -544,6 +613,11 @@ h1 {
   font-size: 14px;
   font-weight: 600;
 }
+.count-chip.cancelled {
+  background-color: rgb(236, 4, 4);
+  font-size: 14px;
+  font-weight: 600;
+}
 
 .controls {
   display: flex;
@@ -574,7 +648,7 @@ h1 {
 .reset-button {
   padding: 10px 16px;
   border: none;
-  background-color: #e70c1e;
+  background-color: #6776ff;
   color: white;
   border-radius: 10px;
   cursor: pointer;
@@ -583,7 +657,7 @@ h1 {
 }
 
 .reset-button:hover {
-  background-color: #d30a0a;
+  background-color: #4557ff;
 }
 
 .quote-table {
@@ -594,7 +668,8 @@ h1 {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.13);
   border-radius: 10px;
   overflow: hidden;
-  flex-grow:1;
+  flex-grow: 1;
+  cursor: pointer;
 }
 
 .quote-table th,
@@ -629,7 +704,7 @@ h1 {
   font-weight: 600;
 }
 .complete-button:hover {
-  background-color: #059669;
+  background-color: #d51763;
 }
 
 .status-text {
@@ -674,5 +749,45 @@ h1 {
 .pagination span {
   font-size: 14px;
   color: #334155;
+}
+.custom-status-dropdown {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: transparent;
+  padding: 6px 24px 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='12' viewBox='0 0 24 24' width='12' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 12px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+/* Custom colors */
+.status-completed {
+  background-color: #10b981 !important; /* green-100 */
+  color: white !important; /* green-700 */
+  /* border-color: #047857 !important; */
+}
+
+.status-upcoming {
+  background-color: #f75696;
+  color: white; /* yellow-700 */
+  /* border-color: #92400e; */
+}
+
+.status-cancelled {
+  background-color: rgb(236, 4, 4);
+  color: white; /* red-700 */
+  /* border-color: #b91c1c; */
+}
+
+/* Override disabled greying out */
+.custom-status-dropdown:disabled {
+  opacity: 1;
+  cursor: not-allowed;
 }
 </style>
