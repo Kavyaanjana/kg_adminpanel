@@ -674,7 +674,7 @@ h1 {
 
 .quote-table th,
 .quote-table td {
-  padding: 14px 16px;
+  padding: 10px 12px;
   text-align: left;
   border: 1px solid #d7d7d8; /* adds borders to all sides */
   font-size: 14px;
@@ -790,4 +790,5 @@ h1 {
   opacity: 1;
   cursor: not-allowed;
 }
+
 </style>

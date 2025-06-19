@@ -54,7 +54,7 @@ html, body {
 
 
 /* Mobile Styles */
-@media (max-width: 768px) {
+@media (max-width: 840px) {
   .layout {
     flex-direction: row; /* DO NOT change to column */
   }
@@ -69,4 +69,10 @@ html, body {
     padding: 12px;
   }
 
+}
+@media (max-width: 756px) {
+  .sidebar {
+    width: 140px!important;
+    height: 100vh;
+  }
 }
