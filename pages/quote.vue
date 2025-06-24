@@ -61,8 +61,8 @@
           <th>Phone No</th>
           <th>Event Type</th>
           <th>Date</th>
-          <th>Status</th>
           <th>Venue</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -77,6 +77,8 @@
           <td>{{ quote.phone }}</td>
           <td>{{ quote.eventType }}</td>
           <td>{{ quote.date }} at {{ quote.time }}</td>
+                    <td>{{ quote.venue }}</td>
+
           <td>
             <select
               v-model="quote.status"
@@ -97,7 +99,6 @@
             </select>
           </td>
 
-          <td>{{ quote.venue }}</td>
         </tr>
       </tbody>
     </table>
@@ -571,6 +572,7 @@ function goToQuoteDetails(index) {
 </script>
 
 <style scoped>
+
 h1 {
   font-size: 28px;
   margin-bottom: 24px;

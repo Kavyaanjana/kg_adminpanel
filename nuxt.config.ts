@@ -6,11 +6,13 @@ export default defineNuxtConfig({
 
   modules: [
     '@nuxt/content',
+    '@pinia/nuxt',
     '@nuxt/eslint',
     '@nuxt/fonts',
     '@nuxt/icon',
     '@nuxt/image',
     '@nuxt/scripts',
-    '@nuxt/ui'
+    '@nuxt/ui',
+    '@vueuse/nuxt',
   ]
 })
